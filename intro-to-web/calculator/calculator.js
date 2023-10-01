@@ -1,77 +1,97 @@
-const buttons = document.querySelectorAll(".calc-button");
+let runningTotal = 0;
+let buffer = "0";
+let previousOperator;
 const screen = document.querySelector(".screen");
-const operators = ['÷', 'x', '-', '+', '=']
-const operations = []
 
-for (let i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener("click", function () {
-        const buttonText = buttons[i].innerText
-        console.log("click", buttonText);
-        if (buttonText === 'C') {
-            clearScreen()
-        }
-        else if (buttonText === '←') {
-            backspace()
-        }
-        else if (operators.includes(buttonText)) {
-            operate(buttonText)
-        }
-        else {
-            writeNumberOnScreen(buttonText)
-        } 
+function buttonClick(value) {
+  if (isNaN(parseInt(value))) {
+    handleSymbol(value);
+  } else {
+    handleNumber(value);
+  }
+  rerender();
+}
+
+function handleNumber(value) {
+  if (buffer === "0") {
+    buffer = value;
+  } else {
+    buffer += value;
+  }
+}
+
+function handleMath(value) {
+  if (buffer === "0") {
+    // do nothing
+    return;
+  }
+
+  const intBuffer = parseInt(buffer);
+  if (runningTotal === 0) {
+    runningTotal = intBuffer;
+  } else {
+    flushOperation(intBuffer);
+  }
+
+  previousOperator = value;
+
+  buffer = "0";
+}
+
+function flushOperation(intBuffer) {
+  if (previousOperator === "+") {
+    runningTotal += intBuffer;
+  } else if (previousOperator === "-") {
+    runningTotal -= intBuffer;
+  } else if (previousOperator === "x") {
+    runningTotal *= intBuffer;
+  } else {
+    runningTotal /= intBuffer;
+  }
+}
+
+function handleSymbol(value) {
+  switch (value) {
+    case "C":
+      buffer = "0";
+      runningTotal = 0;
+      break;
+    case "=":
+      if (previousOperator === null) {
+        // need two numbers to do math
+        return;
+      }
+      flushOperation(parseInt(buffer));
+      previousOperator = null;
+      buffer = +runningTotal;
+      runningTotal = 0;
+      break;
+    case "←":
+      if (buffer.length === 1) {
+        buffer = "0";
+      } else {
+        buffer = buffer.substring(0, buffer.length - 1);
+      }
+      break;
+    case "+":
+    case "-":
+    case "x":
+    case "÷":
+      handleMath(value);
+      break;
+  }
+}
+
+function rerender() {
+  screen.innerText = buffer;
+}
+
+function init() {
+  document
+    .querySelector(".calc-buttons")
+    .addEventListener("click", function (event) {
+      buttonClick(event.target.innerText);
     });
 }
 
-
-function writeNumberOnScreen(number) {
-    const numberOnScreen = getNumberOnScreen()
-    numberOnScreen === '0' ? screen.innerText = number : screen.innerText += number
-}
-
-function getNumberOnScreen() {
-    return screen.innerText
-}
-
-function clearScreen() {
-    screen.innerText = '0'
-}
-
-function operate(buttonText) {
-    if (buttonText === '=') {
-        const {firstTerm, operator} = operations[operations.length - 1]
-        console.log(firstTerm)
-        lastTerm = getNumberOnScreen()
-        result = calculateResult(firstTerm, operator, lastTerm)
-        screen.innerText = result
-        operations.pop()
-    }
-    else {
-        operations.push({
-            firstTerm: getNumberOnScreen(),
-            operator: buttonText
-        })
-        screen.innerText = '0'
-    }
-    
-}
-
-function calculateResult(firstTerm, operator, lastTerm) {
-    firstTerm = Number.parseInt(firstTerm)
-    lastTerm = Number.parseInt(lastTerm)
-    switch (operator) {
-        case '÷':
-            return firstTerm / lastTerm
-        case 'x':
-            return firstTerm * lastTerm
-        case '-':
-            return firstTerm - lastTerm
-        case '+':
-            return firstTerm + lastTerm
-    }
-}
-
-function backspace() {
-    const numberOnScreen = getNumberOnScreen()
-    let newNumber = numberOnScreen.substring(0, numberOnScreen.length - 1)
-    screen.innerText = newNumber === '' ? '0' : newNumber 
-}
+init();
