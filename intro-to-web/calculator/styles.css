@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.calculator {
+    display: grid;
+    grid-template-areas: 
+    'display display display display'
+    'clear clear backspace division'
+    'seven eight nine multiply'
+    'four five six minus'
+    'one two three plus'
+    'zero zero zero equals';
+    max-width: 400px;
+}
+
+.display {
+    font-family: 'monospace';
+    grid-area: display;
+    background-color: #000;
+    color: #fff;
+    font-size: 2rem;
+    padding: 1rem;
+    text-align: right;
+}
+
+.clear {
+    grid-area: clear
+}
+
+.backspace {
+    grid-area: backspace
+}
+
+.division {
+    grid-area: division
+}
+
+.multiply {
+    grid-area: multiply
+}
+
+.minus {
+    grid-area: minus
+}
+
+.plus {
+    grid-area: plus
+}
+
+.equals {
+    grid-area: equals
+}
+
+.one {
+    grid-area: one
+}
+
+.two {
+    grid-area: two
+}
+
+.three {
+    grid-area: three
+}
+
+.four {
+    grid-area: four
+}
+
+.five {
+    grid-area: five
+}
+
+.six {
+    grid-area: six
+}
+
+.seven {
+    grid-area: seven
+}
+
+.eight {
+    grid-area: eight
+}
+
+.nine {
+    grid-area: nine
+}
+
+.zero {
+    grid-area: zero
+}
+
+button {
+    background-color: lightgrey;
+    border: 0.8px solid #000;
+    height: 90px;
+    font-size: 40px;
+}
+
+button:active {
+    background-color: grey;
+}
+.operator {
+    background-color: rgb(235, 94, 43);
+    color: rgb(240, 240, 240)
+}
+
+.operator:active {
+    background-color: rgb(194, 80, 38);
+}
+
