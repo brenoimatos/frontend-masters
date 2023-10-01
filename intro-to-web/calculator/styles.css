@@ -1,115 +1,68 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
 }
 
-.calculator {
-    display: grid;
-    grid-template-areas: 
-    'display display display display'
-    'clear clear backspace division'
-    'seven eight nine multiply'
-    'four five six minus'
-    'one two three plus'
-    'zero zero zero equals';
-    max-width: 400px;
+body {
+  padding: 0;
+  margin: 0;
 }
 
-.display {
-    font-family: 'monospace';
-    grid-area: display;
-    background-color: #000;
-    color: #fff;
-    font-size: 2rem;
-    padding: 1rem;
-    text-align: right;
+.calc {
+  width: 400px;
+  background-color: black;
+  color: white;
 }
 
-.clear {
-    grid-area: clear
+.screen {
+  color: white;
+  font-size: 40px;
+  font-family: "Courier New", Courier, monospace;
+  text-align: right;
+  padding: 20px 5px;
 }
 
-.backspace {
-    grid-area: backspace
+.calc-button {
+  background-color: #d8d9db;
+  color: black;
+  height: 100px;
+  width: 24.5%;
+  border: none;
+  border-radius: 0;
+  font-size: 40px;
+  cursor: pointer;
 }
 
-.division {
-    grid-area: division
+.calc-button:hover {
+  background-color: #ebebeb;
 }
 
-.multiply {
-    grid-area: multiply
+.calc-button:active {
+  background-color: #bbbcbe;
 }
 
-.minus {
-    grid-area: minus
+.double {
+  width: 49.7%;
 }
 
-.plus {
-    grid-area: plus
+.triple {
+  width: 74.8%;
 }
 
-.equals {
-    grid-area: equals
+.calc-button:last-child {
+  background-color: #df974c;
+  color: white;
 }
 
-.one {
-    grid-area: one
+.calc-button:last-child:hover {
+  background-color: #dfb07e;
 }
 
-.two {
-    grid-area: two
+.calc-button:last-child:active {
+  background-color: #dd8d37;
 }
 
-.three {
-    grid-area: three
+.calc-button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
 }
-
-.four {
-    grid-area: four
-}
-
-.five {
-    grid-area: five
-}
-
-.six {
-    grid-area: six
-}
-
-.seven {
-    grid-area: seven
-}
-
-.eight {
-    grid-area: eight
-}
-
-.nine {
-    grid-area: nine
-}
-
-.zero {
-    grid-area: zero
-}
-
-button {
-    background-color: lightgrey;
-    border: 0.8px solid #000;
-    height: 90px;
-    font-size: 40px;
-}
-
-button:active {
-    background-color: grey;
-}
-.operator {
-    background-color: rgb(235, 94, 43);
-    color: rgb(240, 240, 240)
-}
-
-.operator:active {
-    background-color: rgb(194, 80, 38);
-}
-
